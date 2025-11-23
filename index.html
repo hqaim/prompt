@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Metadata -->
+    <title>PromptForge Pro | Enterprise AI Prompt Architect & Optimizer</title>
+    <meta name="description" content="Transform vague ideas into precision-engineered AI prompts. PromptForge Pro is the enterprise-grade tool for optimizing prompts for ChatGPT, Gemini, and Claude. Powered by HQAIM.">
+    <meta name="keywords" content="AI prompt engineering, prompt architect, ChatGPT prompt generator, Gemini AI tools, prompt optimizer, enterprise AI, LLM utility, HQAIM, automated prompt engineering, best AI prompts, prompt structure, AI workflow automation">
+    <meta name="author" content="HQAIM Studios">
+    <meta name="theme-color" content="#020408">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://promptforge.hqaim.com/">
+    <meta property="og:title" content="PromptForge Pro | Enterprise AI Prompt Architect">
+    <meta property="og:description" content="Master the art of AI communication. Refine vague concepts into structured, high-performance outputs using the CLARITY-7™ framework.">
+    <meta property="og:image" content="https://aiartisan.hqaim.com/images/PromptForge-Pro_icon.svg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://promptforge.hqaim.com/">
+    <meta property="twitter:title" content="PromptForge Pro | Enterprise AI Prompt Architect">
+    <meta property="twitter:description" content="Master the art of AI communication. Refine vague concepts into structured, high-performance outputs.">
+    <meta property="twitter:image" content="https://aiartisan.hqaim.com/images/PromptForge-Pro_icon.svg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://aiartisan.hqaim.com/images/favicon.ico" type="image/x-icon" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Marked for Markdown Rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Generative AI SDK -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+
+    <!-- Aesthetic Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Enabled manual dark mode toggling
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: {
+                            950: '#020408', // Deepest black
+                            900: '#080C14', // Surface
+                            800: '#0F1623', // Borders/Secondary
+                            700: '#1A2332',
+                        },
+                        gold: {
+                            400: '#FCD34D',
+                            500: '#D4AF37', // Classic Gold
+                            600: '#B5952F',
+                            700: '#9A7D23', // Darker gold for light mode text
+                            900: '#423205',
+                        },
+                        paper: {
+                            50: '#F8FAFC', // Light mode bg
+                            100: '#F1F5F9', // Light mode surface
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                        'fadeUp': 'fadeUp 0.5s ease-out forwards',
+                        'fadeIn': 'fadeIn 0.8s ease-out forwards',
+                        'glow': 'glow 4s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px -5px rgba(212, 175, 55, 0.1)' },
+                            '50%': { boxShadow: '0 0 30px -5px rgba(212, 175, 55, 0.3)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        }
+                    },
+                    screens: {
+                        'xs': '475px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@600;700&display=swap');
+        
+        body {
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Light Mode Default Body */
+        body {
+            background-color: #F8FAFC; /* Slate-50 */
+            color: #0F172A; /* Slate-900 */
+        }
+
+        /* Dark Mode Body Override */
+        .dark body {
+            background-color: #020408;
+            color: #e2e8f0;
+        }
+
+        /* Custom Scrollbar - Themed */
+        ::-webkit-scrollbar { width: 6px; }
+        
+        /* Light Mode Scrollbar */
+        ::-webkit-scrollbar-track { background: #F1F5F9; }
+        ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #B5952F; }
+
+        /* Dark Mode Scrollbar */
+        .dark ::-webkit-scrollbar-track { background: #020408; }
+        .dark ::-webkit-scrollbar-thumb { background: #1A2332; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+        /* Markdown Styles - DYNAMIC THEMED */
+        /* Base Light Mode Prose */
+        .prose h3 { color: #B5952F; font-family: 'Playfair Display', serif; margin-top: 2em; margin-bottom: 0.5em; font-size: 1.5rem; border-bottom: 1px solid #E2E8F0; padding-bottom: 0.5em; }
+        .prose strong { color: #B45309; font-weight: 600; } /* Darker Gold/Orange for Light */
+        .prose ul { list-style-type: disc; padding-left: 1.5em; margin-top: 0.5em; color: #334155; }
+        .prose li { margin-bottom: 0.5em; }
+        .prose p { margin-bottom: 1em; line-height: 1.7; font-size: 1.05rem; color: #1E293B; }
+        .prose code { background: #F1F5F9; color: #B45309; padding: 0.2em 0.4em; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; border: 1px solid #E2E8F0; }
+        .prose pre { background: #0F172A; padding: 1.5em; border-radius: 12px; border: 1px solid #E2E8F0; overflow-x: auto; margin-top: 1.5em; margin-bottom: 1.5em; position: relative; }
+        .prose pre code { background: transparent; color: #e2e8f0; padding: 0; border: none; }
+        
+        .prose table { width: 100%; border-collapse: collapse; margin-top: 1.5em; margin-bottom: 1.5em; font-size: 0.95em; }
+        .prose th { text-align: left; padding: 12px; border-bottom: 1px solid #B5952F; color: #B5952F; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .prose td { padding: 12px; border-bottom: 1px solid #E2E8F0; color: #334155; }
+        .prose tr:hover td { background-color: rgba(181, 149, 47, 0.05); }
+
+        /* Dark Mode Prose Overrides */
+        .dark .prose h3 { color: #D4AF37; border-bottom: 1px solid #1A2332; }
+        .dark .prose strong { color: #FCD34D; }
+        .dark .prose ul { color: #cbd5e1; }
+        .dark .prose p { color: #e2e8f0; }
+        
+        /* Enhanced Dark Mode Highlighter */
+        .dark .prose code { 
+            background: #000000; /* Pitch Black for maximum contrast */
+            color: #FCD34D; /* Gold text */
+            border: 1px solid #1A2332; 
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5); /* Inner shadow for depth */
+        }
+        
+        /* Enhanced Section 2 (Master Prompt) Styling for Dark Mode */
+        .dark .prose pre { 
+            background: #0B1221; /* Slightly lighter/richer than main bg */
+            border: 1px solid rgba(212, 175, 55, 0.5); /* Stronger Gold Border */
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.08); /* Subtle Gold Glow */
+        }
+        /* Ensure block code inside pre remains transparent to show the rich background */
+        .dark .prose pre code { background: transparent; border: none; box-shadow: none; }
+        
+        .dark .prose td { border-bottom: 1px solid #1A2332; color: #cbd5e1; }
+        .dark .prose tr:hover td { background-color: rgba(212, 175, 55, 0.05); }
+        
+        /* Input Glow - Themed */
+        .input-glow:focus-within {
+            transition: all 0.3s ease;
+        }
+        /* Light Glow */
+        .input-glow:focus-within {
+            box-shadow: 0 0 30px -5px rgba(181, 149, 47, 0.2);
+            border-color: rgba(181, 149, 47, 0.5);
+        }
+        /* Dark Glow */
+        .dark .input-glow:focus-within {
+            box-shadow: 0 0 40px -10px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 640px) {
+            .prose h3 { font-size: 1.25rem; }
+            .prose pre { padding: 1em; }
+            .prose table { font-size: 0.85em; }
+            .prose th, .prose td { padding: 8px; }
+        }
+
+        /* IMPORTED PREMIUM ANIMATION from PATTERN FORGE_UNIVERSAL.html */
+        .shimmer-text {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 6s linear infinite;
+        }
+        @keyframes shine { 
+            to { background-position: 200% center; } 
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        import { GoogleGenerativeAI } from "@google/generative-ai";
+
+        // --- ICONS COMPONENT ---
+        const Icon = ({ name, size = 24, className }) => {
+            if (!window.lucide || !window.lucide.icons) return null;
+            const iconDef = window.lucide.icons[name];
+            if (!iconDef) return null;
+            const svgElement = window.lucide.createElement(iconDef);
+            svgElement.setAttribute('width', size);
+            svgElement.setAttribute('height', size);
+            if (className) {
+                const currentClass = svgElement.getAttribute('class') || '';
+                svgElement.setAttribute('class', `${currentClass} ${className}`.trim());
+            }
+            return <span dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }} style={{ display: 'inline-flex' }} />;
+        };
+
+        // --- SYSTEM PROMPT ---
+        const ALCHEMIST_SYSTEM_PROMPT = `
+### SYSTEM ROLE ###
+Act as a **Chief AI Systems Architect & Strategic Prompt Engineer** (Top 1% Global Tier). Your goal is not to answer the user's prompt, but to **re-architect** it into a "Diamond-Grade" system asset.
+
+You possess deep expertise in the **HQAIM Studios Frameworks**:
+1.  **CLARITY-7™** (Intent Design: Purpose, Audience, Constraints, Tone, Format, Inputs, Output).
+2.  **SPARK-5™** (Refinement: Structure, Precision, Alignment, Readability, Completeness).
+3.  **MIRROR-6™** (Verification: Meaning, Accuracy, Relevance, Reliability, Outcome Alignment, Repeatability).
+4.  **VALOR-Δ** (Value Measurement: Leverage, Outcome Strength, Improvement).
+
+### THE PROTOCOL ###
+When the user provides an "Initial Concept," you must execute the following **Deep Engineering Logic**:
+
+**PHASE 1: DIAGNOSTIC AUDIT (The "Value Gap" Analysis)**
+1.  **Intent Scan (CLARITY-7™):** Identify what is missing. Does the prompt lack a specific audience? Are constraints vague? Is the output format undefined?
+2.  **Weakness Detection:** Spot "fluff," ambiguity, or lack of role definition.
+3.  **Potential Valuation:** Estimate the current value of the output (Low/Generic) vs. the potential value (High/Strategic).
+
+**PHASE 2: ARCHITECTURAL RECONSTRUCTION**
+You will rebuild the prompt from scratch using this Master Structure:
+* **ROLE:** Assign a high-ticket, expert persona (e.g., "Chief Financial Officer" instead of "Accountant").
+* **CONTEXT:** Fabricate a realistic, high-stakes scenario that forces the AI to perform at peak capacity.
+* **CLARITY-7™ VARIABLES:** Create specific placeholders (e.g., \`{{Target_Audience}}\`, \`{{Price_Point}}\`) to make the prompt reusable.
+* **TASK CHAIN:** Break the request into a logical, step-by-step workflow (Algorithm).
+* **CONSTRAINTS & GUARDRAILS (MIRROR-6™):** Add negative constraints (e.g., "No fluff," "No markdown errors") to ensure reliability.
+* **OUTPUT MODEL:** Define the exact structure of the response (e.g., "A JSON object," "A 3-column table," "A strategic memo").
+
+**PHASE 3: REFINEMENT (SPARK-5™)**
+* Polish the language. Use imperative, professional, and precise command verbs.
+* Ensure the tone is consistent with the assigned expert role.
+
+### OUTPUT FORMAT ###
+You will output **ONLY** two distinct sections:
+
+**SECTION 1: Analysis & Strategy**
+* **Critique:** A bulleted list of why the original prompt was weak (referencing CLARITY-7 gaps).
+* **The Upgrade Strategy:** One sentence explaining how you elevated the logic.
+
+**SECTION 2: Pattern Forge — Enterprise Grade Master Prompt**
+* Provide the fully re-engineered prompt inside a markdown code block (\`\`\`) for easy copying.
+* Append a section titled "### Usage Guide" below the code block explaining how to fill the variables.
+
+---
+**CRITICAL INSTRUCTION:** DO NOT execute the user's initial concept. DO NOT answer their question. ONLY re-engineer their concept into a Master Asset.
+`;
+
+        // --- MAIN APP COMPONENT ---
+        const App = () => {
+            const [provider, setProvider] = React.useState(localStorage.getItem('pf_active_provider') || 'groq');
+            const [apiKeys, setApiKeys] = React.useState(() => {
+                const saved = localStorage.getItem('pf_api_keys');
+                const publicGroqKey = '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';
+                
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    return {
+                        gemini: parsed.gemini || '',
+                        openai: parsed.openai || '',
+                        groq: parsed.groq || publicGroqKey 
+                    };
+                }
+                return {
+                    gemini: '',
+                    openai: '',
+                    groq: publicGroqKey
+                };
+            });
+
+            // THEME STATE
+            const [theme, setTheme] = React.useState(localStorage.getItem('pf_theme') || 'dark');
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+
+            const [rawPrompt, setRawPrompt] = React.useState('');
+            const [isTransmuting, setIsTransmuting] = React.useState(false);
+            const [output, setOutput] = React.useState(null);
+            const [showSettings, setShowSettings] = React.useState(false);
+            const [showHelp, setShowHelp] = React.useState(false);
+            const [error, setError] = React.useState('');
+            const [showScrollTop, setShowScrollTop] = React.useState(false);
+            
+            // Copy States
+            const [isCopied, setIsCopied] = React.useState(false);
+
+            // Textarea auto-resize
+            const textareaRef = React.useRef(null);
+            const menuRef = React.useRef(null);
+
+            // THEME EFFECT
+            React.useEffect(() => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                localStorage.setItem('pf_theme', theme);
+            }, [theme]);
+
+            // CLICK OUTSIDE TO CLOSE MENU
+            React.useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (menuRef.current && !menuRef.current.contains(event.target)) {
+                        setIsMobileMenuOpen(false);
+                    }
+                };
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => document.removeEventListener('mousedown', handleClickOutside);
+            }, []);
+
+            const toggleTheme = () => {
+                setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+                setIsMobileMenuOpen(false);
+            };
+
+            React.useEffect(() => {
+                const handleScroll = () => {
+                    setShowScrollTop(window.scrollY > 300);
+                };
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            // SMART RESIZE LOGIC
+            React.useEffect(() => {
+                if(textareaRef.current) {
+                    textareaRef.current.style.height = 'auto';
+                    const scrollHeight = textareaRef.current.scrollHeight;
+                    const maxHeight = 256; 
+                    if (scrollHeight > maxHeight) {
+                        textareaRef.current.style.height = maxHeight + 'px';
+                        textareaRef.current.style.overflowY = 'auto';
+                    } else {
+                        textareaRef.current.style.height = scrollHeight + 'px';
+                        textareaRef.current.style.overflowY = 'hidden';
+                    }
+                }
+            }, [rawPrompt]);
+
+            const scrollToTop = () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            const handleKeyChange = (prov, value) => {
+                const newKeys = { ...apiKeys, [prov]: value };
+                setApiKeys(newKeys);
+                localStorage.setItem('pf_api_keys', JSON.stringify(newKeys));
+            };
+
+            const handleProviderSelect = (prov) => {
+                setProvider(prov);
+                localStorage.setItem('pf_active_provider', prov);
+            };
+
+            // --- API CALLERS ---
+            const callGemini = async (key, prompt) => {
+                const genAI = new GoogleGenerativeAI(key);
+                const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" }); 
+                for (let i = 0; i < 5; i++) { 
+                    try {
+                        const result = await model.generateContent({
+                            contents: [{ role: "user", parts: [{ text: ALCHEMIST_SYSTEM_PROMPT + "\n\n### USER'S INITIAL CONCEPT ###\n" + prompt }] }]
+                        });
+                        return result.response.text();
+                    } catch (err) {
+                        if ((err.message.includes("429") || err.status === 429) && i < 4) {
+                            const delay = 2000 * Math.pow(2, i);
+                            await new Promise(r => setTimeout(r, delay));
+                            continue;
+                        }
+                        throw err;
+                    }
+                }
+            };
+
+            const callOpenAICompatible = async (key, prompt, baseUrl, modelName) => {
+                if (!key) throw new Error("API Key missing for this provider.");
+                
+                for (let i = 0; i < 5; i++) {
+                    try {
+                        const response = await fetch(`${baseUrl}/chat/completions`, {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${key}` },
+                            body: JSON.stringify({
+                                model: modelName,
+                                messages: [
+                                    { role: "system", content: ALCHEMIST_SYSTEM_PROMPT },
+                                    { role: "user", content: `### USER'S INITIAL CONCEPT ###\n${prompt}` }
+                                ],
+                                temperature: 0.7
+                            })
+                        });
+
+                        if (!response.ok) {
+                            const errData = await response.json().catch(() => ({}));
+                            const errorMessage = errData.error?.message || response.statusText;
+
+                            // Handle 429 (Rate Limit vs Quota)
+                            if (response.status === 429) {
+                                const isQuota = errorMessage.toLowerCase().includes("quota") || errorMessage.toLowerCase().includes("billing");
+                                if (!isQuota && i < 4) {
+                                    // Retry for simple rate limits
+                                    const delay = 2000 * Math.pow(2, i);
+                                    await new Promise(r => setTimeout(r, delay));
+                                    continue;
+                                }
+                            }
+                            
+                            throw new Error(`API Error ${response.status}: ${errorMessage}`);
+                        }
+
+                        const data = await response.json();
+                        return data.choices[0].message.content;
+                    } catch (err) {
+                        // Retry if network error or rate limit (that wasn't 429 response status but caught as fetch error)
+                        if (i < 4 && !err.message.includes("API Error")) { 
+                             const delay = 2000 * Math.pow(2, i);
+                             await new Promise(r => setTimeout(r, delay));
+                             continue;
+                        }
+                        throw err;
+                    }
+                }
+            };
+
+            const handleTransmute = async (inputOverride) => {
+                const input = inputOverride || rawPrompt;
+                const currentKey = apiKeys[provider];
+                
+                if (!currentKey) {
+                    setError(`API Key for ${provider.toUpperCase()} is required. Check Settings.`);
+                    return;
+                }
+                if (!input.trim()) {
+                    setError("Please provide an initial concept to forge.");
+                    return;
+                }
+
+                setIsTransmuting(true);
+                setError('');
+                if(!output) setOutput(null); 
+
+                try {
+                    let resultText = "";
+                    if (provider === 'gemini') {
+                        resultText = await callGemini(currentKey, input);
+                    } else if (provider === 'openai') {
+                        resultText = await callOpenAICompatible(currentKey, input, "https://api.openai.com/v1", "gpt-4o");
+                    } else if (provider === 'groq') {
+                        resultText = await callOpenAICompatible(currentKey, input, "https://api.groq.com/openai/v1", "llama-3.3-70b-versatile");
+                    }
+                    setOutput(resultText);
+                    setTimeout(() => {
+                        const resultEl = document.getElementById('results-area');
+                        if(resultEl) resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                } catch (err) {
+                    console.error(err);
+                    let msg = err.message || "Unknown Error";
+                    
+                    // Enhanced Error Parsing
+                    const lowerMsg = msg.toLowerCase();
+                    if (lowerMsg.includes("quota") || lowerMsg.includes("billing")) {
+                        msg = "Quota Exceeded. Please check your API plan/billing.";
+                    } else if (msg.includes("429") || lowerMsg.includes("rate limit")) {
+                        msg = "Rate Limit Exceeded (Busy). Please try again shortly.";
+                    } else if (msg.includes("401")) {
+                        msg = "Invalid API Key. Please check your settings.";
+                    } else if (msg.includes("400")) {
+                        msg = "Model Configuration Error.";
+                    }
+                    
+                    setError(`Forge Failed: ${msg}`);
+                } finally {
+                    setIsTransmuting(false);
+                }
+            };
+
+            const handleCopy = () => {
+                const textArea = document.createElement("textarea");
+                textArea.value = output;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                textArea.style.top = "0";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    setIsCopied(true);
+                    setTimeout(() => setIsCopied(false), 2000);
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+            };
+
+            // PROCESS HTML FOR COLOR CODING
+            const processHtml = (html) => {
+                if (!html) return '';
+                
+                // Inject colors using specific replacement
+                return html
+                    .replace(/>Critique:?<\/strong>/g, ' class="!text-orange-600 dark:!text-orange-400">Critique:</strong>')
+                    .replace(/>The Upgrade Strategy:?<\/strong>/g, ' class="!text-blue-600 dark:!text-blue-400">The Upgrade Strategy:</strong>')
+                    .replace(/>ROLE:?<\/strong>/g, ' class="!text-purple-600 dark:!text-purple-400">ROLE:</strong>')
+                    // Matches "Variables" inside strong tags, handling potential surrounding text
+                    .replace(/(<strong>.*?)(Variables)(.*?<\/strong>)/gi, '$1<span class="!text-green-600 dark:!text-green-400">$2</span>$3')
+                    // Usage Guide Styling
+                    .replace(/>Usage Guide<\/h3>/g, ' class="!text-teal-600 dark:!text-teal-400 border-b-2 border-teal-500/30 pb-2 mb-4 mt-8">Usage Guide</h3>');
+            };
+
+            const getTabClass = (p) => `flex-1 py-2 text-xs font-bold text-center rounded-md transition-all ${provider === p ? 'bg-gold-500 text-obsidian-950 shadow-lg' : 'bg-obsidian-900 text-slate-500 hover:text-slate-300'}`;
+
+            const handleQuickPrompt = (text) => {
+                setRawPrompt(text);
+                // Auto focus the textarea
+                if(textareaRef.current) {
+                    textareaRef.current.focus();
+                }
+            };
+
+            const openHelp = () => { setShowHelp(true); setIsMobileMenuOpen(false); };
+            const openSettings = () => { setShowSettings(true); setIsMobileMenuOpen(false); };
+
+            return (
+                <div className="min-h-screen flex flex-col font-sans selection:bg-gold-500/30 selection:text-gold-400 relative bg-paper-50 dark:bg-obsidian-950 transition-colors duration-300 text-slate-900 dark:text-slate-200">
+                    
+                    {/* HEADER */}
+                    <header className="absolute top-0 left-0 w-full p-4 sm:p-6 flex justify-between items-center z-50 pointer-events-none">
+                        {/* Left: Home Logo */}
+                        <a 
+                            href="https://www.hqaim.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="pointer-events-auto hover:opacity-80 transition-opacity"
+                            aria-label="HQAIM Home"
+                        >
+                            <img 
+                                src="https://aiartisan.hqaim.com/images/HQAIM-App_Logo.svg" 
+                                alt="HQAIM Logo" 
+                                className="w-8 h-8 sm:w-10 sm:h-10"
+                            />
+                        </a>
+
+                        {/* Desktop Navigation (Visible on md+) */}
+                        <div className="hidden md:flex items-center gap-3 sm:gap-4 pointer-events-auto">
+                             {/* THEME TOGGLE - SWAPPED ICONS */}
+                             <button 
+                                onClick={toggleTheme} 
+                                className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2" 
+                                title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                                aria-label="Toggle Theme"
+                            >
+                                {theme === 'dark' ? <Icon name="Moon" size={22} /> : <Icon name="Sun" size={22} />}
+                            </button>
+
+                             {/* GPT LINK */}
+                             <a 
+                                href="https://chatgpt.com/g/g-691cc1aeaccc8191b9236889b777bbf0-promptforge-pro-hqaim" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2"
+                                title="Open Official GPT"
+                                aria-label="Open Official GPT"
+                            >
+                                <Icon name="Bot" size={22} />
+                            </a>
+
+                            {/* DONATE LINK */}
+                            <a 
+                                href="https://paypal.me/activeearner" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2"
+                                title="Support the Work"
+                                aria-label="Donate"
+                            >
+                                <Icon name="Heart" size={22} />
+                            </a>
+
+                            <button onClick={openHelp} className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2" title="Usage Guide" aria-label="Usage Guide">
+                                <Icon name="HelpCircle" size={22} />
+                            </button>
+                            <button onClick={openSettings} className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2" title="Settings" aria-label="Settings">
+                                <Icon name="Settings" size={22} />
+                            </button>
+                        </div>
+
+                        {/* Mobile Menu Toggle (Visible on small screens) */}
+                        <div className="md:hidden pointer-events-auto relative" ref={menuRef}>
+                            <button 
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="text-slate-500 hover:text-gold-600 dark:text-slate-400 dark:hover:text-gold-400 transition-colors p-2"
+                                aria-label="Menu"
+                            >
+                                {isMobileMenuOpen ? <Icon name="X" size={24} /> : <Icon name="Menu" size={24} />}
+                            </button>
+
+                            {/* Mobile Dropdown Menu */}
+                            {isMobileMenuOpen && (
+                                <div className="absolute top-full right-0 mt-2 w-56 bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-obsidian-700 rounded-xl shadow-xl p-2 flex flex-col gap-1 animate-fadeUp backdrop-blur-xl z-50">
+                                    {/* SWAPPED ICONS IN MOBILE MENU TOO */}
+                                    <button onClick={toggleTheme} className="flex items-center gap-3 w-full p-3 rounded-lg text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-800 transition-colors">
+                                        {theme === 'dark' ? <Icon name="Moon" size={18} /> : <Icon name="Sun" size={18} />}
+                                        <span>Switch Theme</span>
+                                    </button>
+                                    <a href="https://chatgpt.com/g/g-691cc1aeaccc8191b9236889b777bbf0-promptforge-pro-hqaim" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 w-full p-3 rounded-lg text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-800 transition-colors">
+                                        <Icon name="Bot" size={18} />
+                                        <span>Official GPT</span>
+                                    </a>
+                                    <a href="https://paypal.me/activeearner" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 w-full p-3 rounded-lg text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-800 transition-colors">
+                                        <Icon name="Heart" size={18} />
+                                        <span>Donate</span>
+                                    </a>
+                                    <button onClick={openHelp} className="flex items-center gap-3 w-full p-3 rounded-lg text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-800 transition-colors">
+                                        <Icon name="HelpCircle" size={18} />
+                                        <span>Usage Guide</span>
+                                    </button>
+                                    <button onClick={openSettings} className="flex items-center gap-3 w-full p-3 rounded-lg text-left text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-obsidian-800 transition-colors">
+                                        <Icon name="Settings" size={18} />
+                                        <span>Settings</span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </header>
+
+                    {/* MAIN CONTENT */}
+                    <main className="flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto w-full px-4 pt-16 pb-40 relative z-10">
+                        
+                        {/* HERO BRANDING */}
+                        <div className={`text-center transition-all duration-700 ${output ? 'mt-0 mb-10' : 'mt-0 mb-6 sm:mb-10'}`}>
+                            
+                            {/* Glowing Logo Container */}
+                            <div className="relative inline-block mb-4 sm:mb-6 animate-float">
+                                <div className="absolute inset-0 bg-gold-500/20 blur-3xl rounded-full animate-pulse-slow"></div>
+                                {/* REDUCED SIZE FURTHER FOR LAPTOP FIT */}
+                                <div className="w-20 h-20 sm:w-28 sm:h-28 relative z-10 flex items-center justify-center">
+                                    <img 
+                                            src="https://aiartisan.hqaim.com/images/PromptForge-Pro_icon.svg" 
+                                            alt="Logo"
+                                            className="w-full h-full object-cover drop-shadow-2xl rounded-full"
+                                            onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
+                                    />
+                                    <div className="w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-br from-gold-600 to-obsidian-900 rounded-full border border-gold-500/20 hidden items-center justify-center shadow-2xl">
+                                        <Icon name="PenTool" className="text-gold-400" size={40} />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Main Title */}
+                            <h1 className="text-3xl sm:text-4xl md:text-6xl font-serif font-bold tracking-tight mb-3 px-2 text-slate-900 dark:text-white transition-colors duration-300">
+                                <span className="text-gold-600 dark:text-gold-500">Prompt</span><span className="shimmer-text">Forge</span> <span className="text-slate-800 dark:text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.1)] dark:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">Pro</span> 
+                            </h1>
+                            
+                            {/* Subtitle */}
+                            <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 text-xs sm:text-sm font-mono leading-none text-slate-500 mb-6 uppercase tracking-[0.1em] flex-nowrap whitespace-nowrap">
+                                <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-normal tracking-widest">
+                                    PROMPT ENHANCER 
+                                    <span className="text-gold-600 dark:text-gold-500 hidden sm:inline">—</span>
+                                    <span className="text-gold-600 dark:text-gold-500 sm:hidden">-</span>
+                                    <span className="opacity-100 text-gold-600 dark:text-gold-400 font-normal tracking-wider" style={{textTransform: 'capitalize'}}>Enterprise Grade</span>
+                                </span>
+                                
+                                {/* Vertical Divider */}
+                                <span className="h-3 sm:h-4 w-px bg-slate-300 dark:bg-slate-700 mx-1 sm:mx-2"></span>
+                                
+                                <a href="https://www.hqaim.com" target="_blank" className="hover:opacity-80 transition-opacity opacity-90 flex items-center">
+                                    {/* Simplified HQAIM Text for light/dark compatibility if image fails or just use image */}
+                                     <img 
+                                            src="https://aiartisan.hqaim.com/assets/images/HQAIM_LOGO_Gradient_Minimal.svg" 
+                                            alt="HQAIM" 
+                                            className="h-4 sm:h-5 w-auto" 
+                                            onError={(e) => {
+                                                e.target.style.display = 'none';
+                                                const span = document.createElement('span');
+                                                span.className = "text-slate-400 text-[10px] font-mono tracking-widest uppercase";
+                                                span.innerHTML = "HQAIM";
+                                                e.target.parentNode.appendChild(span);
+                                            }}
+                                    />
+                                </a>
+                            </div>
+
+                            {/* Badge */}
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-obsidian-900 border border-slate-200 dark:border-obsidian-800 mb-8 shadow-md transition-colors duration-300">
+                                <Icon name="CheckCircle2" size={14} className="text-green-600 dark:text-green-500" />
+                                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono uppercase tracking-wider">ACTIVE ENGINE: <span className="text-slate-900 dark:text-white font-normal">{provider}</span></span>
+                            </div>
+
+                            {/* Description */}
+                            <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-light px-4">
+                                Refines vague concepts into structured, high-performance outputs. Forces the AI to act as an expert "Prompt Engineer".
+                            </p>
+                        </div>
+
+                        {/* QUICK STARTERS */}
+                        {!output && (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl mb-16 animate-fadeUp px-2" style={{animationDelay: '0.1s'}}>
+                                {[
+                                    "Write a YouTube script for a tech review",
+                                    "Summarize a 20-page legal contract",
+                                    "Design a Python coding assistant",
+                                    "Create a 30-day LinkedIn content plan"
+                                ].map((text, i) => (
+                                    <button 
+                                        key={i}
+                                        onClick={() => handleQuickPrompt(text)}
+                                        className="bg-white/60 dark:bg-obsidian-900/40 hover:bg-white dark:hover:bg-obsidian-800 border border-slate-200 dark:border-obsidian-800/50 hover:border-gold-500/50 dark:hover:border-gold-500/30 p-4 sm:p-5 rounded-xl text-left transition-all group flex flex-col justify-between backdrop-blur-sm shadow-sm hover:shadow-md"
+                                    >
+                                        <span className="text-[10px] text-slate-400 dark:text-slate-500 font-mono mb-2 block group-hover:text-gold-600 dark:group-hover:text-gold-500 transition-colors uppercase tracking-wider">Quick Start</span>
+                                        <span className="text-sm text-slate-700 dark:text-slate-300 leading-snug group-hover:text-slate-900 dark:group-hover:text-white transition-colors line-clamp-2">"{text}..."</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* RESULTS AREA */}
+                        {output && (
+                            <div id="results-area" className="w-full max-w-4xl bg-white dark:bg-obsidian-900 rounded-2xl border border-slate-200 dark:border-obsidian-800 overflow-hidden shadow-2xl mb-32 animate-fadeUp transition-colors duration-300">
+                                <div className="p-4 bg-paper-50 dark:bg-obsidian-950 border-b border-slate-200 dark:border-obsidian-800 flex justify-between items-center sticky top-0 z-10 gap-2">
+                                    <span className="text-xs font-mono text-green-600 dark:text-green-500 flex items-center gap-2 mr-auto">
+                                        <Icon name="Sparkles" size={14} /> <span className="hidden xs:inline">ANALYSIS COMPLETE</span>
+                                    </span>
+                                    
+                                    {/* COPY RESULT BUTTON */}
+                                    <button 
+                                        onClick={handleCopy}
+                                        className={`text-xs font-bold flex items-center gap-2 transition-all px-3 py-1.5 rounded-lg border 
+                                            ${isCopied 
+                                                ? 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/30' 
+                                                : 'bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-obsidian-700 hover:border-gold-500/30 hover:text-gold-600 dark:hover:text-gold-400'
+                                            }`}
+                                        aria-label="Copy Result"
+                                    >
+                                        {isCopied ? <Icon name="Check" size={14} /> : <Icon name="Copy" size={14} />}
+                                        <span className="hidden sm:inline">{isCopied ? 'RESULT COPIED!' : 'COPY RESULT'}</span>
+                                        <span className="sm:hidden">{isCopied ? 'COPIED' : 'COPY'}</span>
+                                    </button>
+                                </div>
+                                <div className="p-6 sm:p-8 prose prose-sm max-w-none transition-colors duration-300">
+                                    <div dangerouslySetInnerHTML={{ __html: processHtml(marked.parse(output)) }} />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ERROR MESSAGE */}
+                        {error && (
+                            <div className="w-full max-w-2xl mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-500/50 text-red-600 dark:text-red-400 p-4 rounded-lg flex items-center gap-3 animate-fadeUp">
+                                <Icon name="AlertTriangle" size={18} />
+                                <span className="text-sm">{error}</span>
+                            </div>
+                        )}
+
+                        {/* FLOATING INPUT BAR */}
+                        <div className={`fixed bottom-12 sm:bottom-16 left-0 w-full px-4 z-40 transition-all duration-500 ${output ? 'translate-y-0' : 'translate-y-0'}`}>
+                            <div className="max-w-3xl mx-auto relative">
+                                <div className={`bg-white/90 dark:bg-obsidian-900/95 backdrop-blur-xl border transition-all duration-300 rounded-2xl shadow-2xl flex items-end p-2 input-glow ${isTransmuting ? 'border-gold-500/50' : 'border-slate-200 dark:border-obsidian-700'}`}>
+                                    <div className="flex items-center justify-center h-12 w-12 text-slate-400 dark:text-slate-500 shrink-0 pb-1 hidden sm:flex">
+                                        {isTransmuting ? <Icon name="Loader2" className="animate-spin text-gold-500" /> : <Icon name="Plus" />}
+                                    </div>
+                                    
+                                    <textarea
+                                        ref={textareaRef}
+                                        value={rawPrompt}
+                                        onChange={(e) => setRawPrompt(e.target.value)}
+                                        placeholder="Describe your concept here... (e.g., 'Cold email sequence for SEO services')"
+                                        className="w-full bg-transparent text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 text-base p-3 max-h-64 resize-none focus:outline-none leading-relaxed overflow-hidden"
+                                        style={{ minHeight: '88px' }}
+                                        disabled={isTransmuting}
+                                        rows={1}
+                                        onKeyDown={(e) => {
+                                            if(e.key === 'Enter' && !e.shiftKey) {
+                                                e.preventDefault();
+                                                handleTransmute();
+                                            }
+                                        }}
+                                    />
+
+                                    <button
+                                        onClick={() => handleTransmute()}
+                                        disabled={isTransmuting || !rawPrompt.trim()}
+                                        className={`h-10 px-4 sm:px-6 m-1 rounded-xl font-bold text-sm flex items-center gap-2 transition-all shrink-0 ${
+                                            !rawPrompt.trim() || isTransmuting
+                                            ? 'bg-slate-100 dark:bg-obsidian-800 text-slate-400 dark:text-slate-600 cursor-not-allowed'
+                                            : 'bg-gold-600 hover:bg-gold-500 text-white shadow-lg shadow-gold-600/20'
+                                        }`}
+                                    >
+                                        {isTransmuting ? (
+                                            <Icon name="Loader2" className="animate-spin" size={18} />
+                                        ) : (
+                                            <>
+                                                <Icon name="Zap" size={18} />
+                                                <span className="hidden sm:inline">Forge</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                                
+                                {!output && (
+                                    <p className="text-center text-[10px] text-slate-400 dark:text-slate-600 mt-3 font-mono tracking-wide opacity-80 hidden sm:block">
+                                        Press Enter to Forge • Powered by {provider.charAt(0).toUpperCase() + provider.slice(1)}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                    </main>
+
+                    {/* MODALS & EXTRAS */}
+                    {showHelp && (
+                        <div className="fixed inset-0 bg-black/50 dark:bg-black/80 z-[70] flex items-center justify-center p-4 backdrop-blur-sm">
+                            <div className="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-gold-500/30 rounded-xl p-6 max-w-lg w-full shadow-2xl animate-fadeUp relative max-h-[90vh] overflow-y-auto">
+                                <button onClick={() => setShowHelp(false)} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Guide"><Icon name="X" size={20}/></button>
+                                <h3 className="text-2xl font-serif text-gold-600 dark:text-gold-400 mb-4 flex items-center gap-2"><Icon name="BookOpen" size={24}/> Usage Guide</h3>
+                                <div className="space-y-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    <div className="p-3 bg-paper-50 dark:bg-obsidian-950 border border-slate-200 dark:border-obsidian-700 rounded-lg">
+                                        <h4 className="text-slate-900 dark:text-white font-bold mb-1">1. Input Concept</h4>
+                                        <p className="text-slate-500 dark:text-slate-400 text-xs">Paste a rough idea. Example: <em>"Write a cold email to sell SEO services."</em></p>
+                                    </div>
+                                    <div className="p-3 bg-paper-50 dark:bg-obsidian-950 border border-slate-200 dark:border-obsidian-700 rounded-lg">
+                                        <h4 className="text-slate-900 dark:text-white font-bold mb-1">2. Forge</h4>
+                                        <p className="text-slate-500 dark:text-slate-400 text-xs">Click the <strong>Forge</strong> button. The system applies architectural frameworks to rebuild your input.</p>
+                                    </div>
+                                    <div className="mt-4 p-3 bg-gold-50 dark:bg-gold-900/20 border border-gold-200 dark:border-gold-500/20 rounded-lg">
+                                        <h4 className="text-gold-700 dark:text-gold-400 font-bold mb-1 text-xs uppercase tracking-widest flex items-center gap-2"><Icon name="Zap" size={12}/> Pro Tip</h4>
+                                        <p className="text-gold-800/80 dark:text-gold-100/80 text-xs">Don't just ask for "a blog post." Ask for "a blog post strategy for a B2B audience." Specificity yields higher value.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {showSettings && (
+                        <div className="fixed inset-0 bg-black/50 dark:bg-black/80 z-[60] flex items-center justify-center p-4 backdrop-blur-sm">
+                            <div className="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-gold-500/30 rounded-xl p-6 max-w-md w-full shadow-2xl animate-fadeUp">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h3 className="text-xl font-serif text-slate-900 dark:text-white">Engine Configuration</h3>
+                                    <button onClick={() => setShowSettings(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-white" aria-label="Close Settings"><Icon name="X" size={18}/></button>
+                                </div>
+                                <div className="flex gap-2 bg-paper-100 dark:bg-obsidian-950 p-1 rounded-lg mb-6">
+                                    <button onClick={() => handleProviderSelect('gemini')} className={getTabClass('gemini')}>GEMINI</button>
+                                    <button onClick={() => handleProviderSelect('openai')} className={getTabClass('openai')}>OPENAI</button>
+                                    <button onClick={() => handleProviderSelect('groq')} className={getTabClass('groq')}>GROQ</button>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="space-y-2">
+                                        <label className="flex items-center gap-2 text-xs text-gold-600 dark:text-gold-500 font-mono uppercase"><Icon name="Key" size={12}/> {provider} API KEY</label>
+                                        <input type="password" value={apiKeys[provider]} onChange={(e) => handleKeyChange(provider, e.target.value)} placeholder={`Enter ${provider.toUpperCase()} Key...`} className="w-full bg-paper-50 dark:bg-obsidian-950 border border-slate-200 dark:border-obsidian-700 rounded p-3 text-slate-800 dark:text-slate-300 focus:border-gold-500/50 focus:outline-none font-mono text-sm"/>
+                                        <p className="text-[10px] text-slate-500">Key stored locally in your browser.</p>
+                                    </div>
+                                </div>
+                                <div className="mt-8 pt-4 border-t border-slate-200 dark:border-obsidian-700 flex justify-end">
+                                    <button onClick={() => setShowSettings(false)} className="px-6 py-2 bg-gold-600 hover:bg-gold-500 text-white dark:text-obsidian-950 font-bold rounded text-sm transition-all">DONE</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <footer className="fixed bottom-0 w-full bg-white/90 dark:bg-obsidian-950/95 backdrop-blur-md border-t border-slate-200 dark:border-obsidian-800 py-3 text-center z-30 transition-colors duration-300">
+                        <div className="flex justify-center items-center px-4">
+                            <p className="text-slate-400 dark:text-slate-600 text-[10px] font-mono tracking-widest uppercase">
+                                &copy; {new Date().getFullYear()} <a href="https://www.hqaim.com" target="_blank" className="hover:text-gold-500 transition-colors">HQAIM STUDIOS</a>.
+                            </p>
+                        </div>
+                    </footer>
+
+                    {showScrollTop && (
+                        <button 
+                            onClick={scrollToTop} 
+                            className="fixed bottom-28 right-6 sm:bottom-8 sm:right-8 bg-gold-500 hover:bg-gold-400 text-obsidian-950 p-3 rounded-full shadow-lg shadow-gold-500/20 transition-all z-30 animate-fadeUp flex items-center justify-center group" 
+                            title="Back to Top"
+                            aria-label="Back to Top"
+                        >
+                            {/* Removed custom animation for speed optimization */}
+                            <Icon name="ArrowUp" size={28} />
+                        </button>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
